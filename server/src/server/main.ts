@@ -81,13 +81,14 @@ async function searchRecords(
     );
   }
 }
+
 async function getBuyers(): Promise<Buyer[]>{
   return await sequelize.query(
     `SELECT id,name FROM buyers`,
     {
       model: Buyer
     })
-  }
+}
 
 /**
  * Converts a DB-style ProcurementRecord object to an API type.
