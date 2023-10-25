@@ -1,5 +1,6 @@
 import "antd/dist/antd.css";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Breadcrumb, Layout, Menu, Select, Typography  } from "antd";
+import type {SelectProps}  from 'antd';
 import { Content, Footer, Header } from "antd/lib/layout/layout";
 import RecordSearchPage from "./RecordSearchPage";
 import Sider from "antd/lib/layout/Sider";
