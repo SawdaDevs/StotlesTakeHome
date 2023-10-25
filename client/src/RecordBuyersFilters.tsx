@@ -16,15 +16,19 @@ for (let i = 0; i < 100000; i++) {
 const handleChange = (value: string[]) => {
   console.log(`selected ${value}`);
 };
+type Props = {
+    buyers: string;
+  };
 
-export function RecordBuyersFilters(){
+export function RecordBuyersFilters(props: Props){
+    const { buyers } = props;
 
     return (
         <>
             <Select
             mode="multiple"
             style={{ width: '50%' }}
-            placeholder="Filter Buyer"
+            placeholder="Filter Buyer..."
             defaultValue={[]}
             onChange={handleChange}
             options={options}

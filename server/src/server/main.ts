@@ -2,6 +2,7 @@ import express, { request } from "express";
 
 import { Sequelize } from "sequelize-typescript";
 import {
+  BuyerDto,
   ProcurementRecordDto,
   RecordSearchRequest,
   RecordSearchResponse,
@@ -54,7 +55,10 @@ async function searchRecords(
 ): Promise<ProcurementRecord[]> {
   if (textSearch) {
     return await sequelize.query(
-      "SELECT * FROM procurement_records WHERE title LIKE :textSearch LIMIT :limit OFFSET :offset",
+      `SELECT * 
+      FROM procurement_records 
+      WHERE title LIKE :textSearch 
+      LIMIT :limit OFFSET :offset`,
       {
         model: ProcurementRecord, // by setting this sequelize will return a list of ProcurementRecord objects
         replacements: {
@@ -77,6 +81,13 @@ async function searchRecords(
     );
   }
 }
+async function getBuyers(): Promise<Buyer[]>{
+  return await sequelize.query(
+    `SELECT id,name FROM buyers`,
+    {
+      model: Buyer
+    })
+  }
 
 /**
  * Converts a DB-style ProcurementRecord object to an API type.
@@ -140,7 +151,6 @@ async function serializeProcurementRecords(
  */
 app.post("/api/records", async (req, res) => {
   const requestPayload = req.body as RecordSearchRequest;
-
   const { limit, offset } = requestPayload;
 
   if (limit === 0 || limit > 100) {
@@ -169,6 +179,14 @@ app.post("/api/records", async (req, res) => {
 
   res.json(response);
 });
+/**
+This endpoint fetches the id and name for buyers
+*/
+app.get("api/buyers", async(req,res)=>{
+  console.log("this is the req body", req.body);
+  const buyers = await getBuyers(); 
+  res.json(buyers);
+})
 
 app.listen(app.get("port"), () => {
   console.log("  App is running at http://localhost:%d", app.get("port"));

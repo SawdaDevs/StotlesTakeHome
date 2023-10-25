@@ -48,6 +48,7 @@ function RecordSearchPage() {
         setRecords((oldRecords) => [...oldRecords, ...response.records]);
       }
       setReachedEndOfSearch(response.endOfResults);
+      response.records.forEach(rec =>console.log(rec.buyer))
     })();
   }, [searchFilters, page]);
 
@@ -68,7 +69,8 @@ function RecordSearchPage() {
         filters={searchFilters}
         onChange={handleChangeFilters}
       />
-      <RecordBuyersFilters/>
+      {/* <RecordBuyersFilters 
+        buyers= {buyers}/> */}
 
       {records && (
         <>
