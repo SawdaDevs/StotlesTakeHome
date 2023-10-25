@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import React from "react";
-import Api, { ProcurementRecord } from "./Api";
+import Api, { Buyer, ProcurementRecord } from "./Api";
 import RecordSearchFilters, { SearchFilters } from "./RecordSearchFilters";
 import RecordsTable from "./RecordsTable";
 import { RecordBuyersFilters } from "./RecordBuyersFilters";
@@ -28,7 +28,7 @@ function RecordSearchPage() {
   const [records, setRecords] = React.useState<
     ProcurementRecord[] | undefined
   >();
-  const [buyers, setBuyers] = React.useState< string[]|null>()
+  const [buyers, setBuyers] = React.useState< Buyer[]|null>()
 
   const [reachedEndOfSearch, setReachedEndOfSearch] = React.useState(false);
    
@@ -48,7 +48,6 @@ function RecordSearchPage() {
         setRecords((oldRecords) => [...oldRecords, ...response.records]);
       }
       setReachedEndOfSearch(response.endOfResults);
-      response.records.forEach(rec =>console.log(rec.buyer))
     })();
   }, [searchFilters, page]);
 
@@ -56,7 +55,7 @@ function RecordSearchPage() {
     void (async ()=>{
       const api = new Api();
       const response = await api.getBuyers();
-      console.log("this is response", response)
+      setBuyers(response)
     })();
   },[])
 
@@ -77,8 +76,9 @@ function RecordSearchPage() {
         filters={searchFilters}
         onChange={handleChangeFilters}
       />
-      {/* <RecordBuyersFilters 
-        buyers= {buyers}/> */}
+      {buyers && (<RecordBuyersFilters 
+        buyers= {buyers}/>)
+      }
 
       {records && (
         <>

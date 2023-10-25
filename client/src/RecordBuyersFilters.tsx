@@ -1,28 +1,25 @@
 import React from 'react';
 import type { SelectProps } from 'antd';
 import { Select } from 'antd';
+import { Buyer } from './Api';
 
 const options: SelectProps['options'] = [];
-
-for (let i = 0; i < 100000; i++) {
-  const value = `${i.toString(36)}${i}`;
-  options.push({
-    label: value,
-    value,
-    disabled: i === 10,
-  });
-}
 
 const handleChange = (value: string[]) => {
   console.log(`selected ${value}`);
 };
 type Props = {
-    buyers: string;
+    buyers: Buyer[];
   };
 
 export function RecordBuyersFilters(props: Props){
     const { buyers } = props;
-
+    buyers.forEach((buyer =>{
+      options.push({
+            label:buyer.name,
+            value: buyer.id
+        })
+    }));
     return (
         <>
             <Select
