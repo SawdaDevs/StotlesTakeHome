@@ -25,8 +25,7 @@ export type SearchRecordsResponse = {
 };
 
 class Api {
-
-
+  
   async searchRecords(
     request: SearchRecordsRequest
   ): Promise<SearchRecordsResponse> {

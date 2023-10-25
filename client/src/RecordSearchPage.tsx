@@ -52,6 +52,14 @@ function RecordSearchPage() {
     })();
   }, [searchFilters, page]);
 
+  React.useEffect(()=>{
+    void (async ()=>{
+      const api = new Api();
+      const response = await api.getBuyers();
+      console.log("this is response", response)
+    })();
+  },[])
+
   
 
   const handleChangeFilters = React.useCallback((newFilters: SearchFilters) => {

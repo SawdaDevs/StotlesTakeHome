@@ -183,7 +183,7 @@ app.post("/api/records", async (req, res) => {
 /**
 This endpoint fetches the id and name for buyers
 */
-app.get("api/buyers", async(req,res)=>{
+app.get("/api/buyers", async(req,res)=>{
   console.log("this is the req body", req.body);
   const buyers = await getBuyers(); 
   res.json(buyers);
