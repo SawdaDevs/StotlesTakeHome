@@ -1,4 +1,5 @@
 export type SearchRecordsRequest = {
+  buyerSearch?: string[];
   textSearch?: string;
   limit: number;
   offset: number;
@@ -25,7 +26,7 @@ export type SearchRecordsResponse = {
 };
 
 class Api {
-  
+
   async searchRecords(
     request: SearchRecordsRequest
   ): Promise<SearchRecordsResponse> {

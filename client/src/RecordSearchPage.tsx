@@ -36,6 +36,7 @@ function RecordSearchPage() {
     void (async () => {
       const api = new Api();
       const response = await api.searchRecords({
+        buyerSearch: searchBuyer,
         textSearch: searchFilters.query,
         limit: PAGE_SIZE,
         offset: PAGE_SIZE * (page - 1),
@@ -48,7 +49,6 @@ function RecordSearchPage() {
         setRecords((oldRecords) => [...oldRecords, ...response.records]);
       }
       setReachedEndOfSearch(response.endOfResults);
-      console.log('this, searchb', searchBuyer)
     })();
   }, [searchFilters, page, searchBuyer]);
 
@@ -68,6 +68,7 @@ function RecordSearchPage() {
   }, []);
   const handleChangeBuyers = React.useCallback((newBuyerFilter:string[]) => {
     setSearchBuyer(newBuyerFilter);
+    setPage(1)
   }, []);
 
   const handleLoadMore = React.useCallback(() => {

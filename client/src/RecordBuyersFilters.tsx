@@ -1,4 +1,3 @@
-import React from 'react';
 import type { SelectProps } from 'antd';
 import { Select } from 'antd';
 import { Buyer } from './Api';
@@ -23,7 +22,6 @@ export function RecordBuyersFilters(props: Props){
     const handleSearchChange = (value: string[]) => {
         console.log(`selected ${value}`);
         onChange(value)
-    
     };
 
     return (
