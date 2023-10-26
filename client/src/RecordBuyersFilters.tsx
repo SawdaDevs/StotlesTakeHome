@@ -5,21 +5,27 @@ import { Buyer } from './Api';
 
 const options: SelectProps['options'] = [];
 
-const handleChange = (value: string[]) => {
-  console.log(`selected ${value}`);
-};
 type Props = {
     buyers: Buyer[];
+    onChange: (newBuyerFilter:string[])=>void,
   };
 
 export function RecordBuyersFilters(props: Props){
-    const { buyers } = props;
+    const { buyers, onChange } = props;
+
     buyers.forEach((buyer =>{
       options.push({
             label:buyer.name,
             value: buyer.id
         })
     }));
+
+    const handleSearchChange = (value: string[]) => {
+        console.log(`selected ${value}`);
+        onChange(value)
+    
+    };
+
     return (
         <>
             <Select
@@ -27,7 +33,7 @@ export function RecordBuyersFilters(props: Props){
             style={{ width: '50%' }}
             placeholder="Filter Buyer..."
             defaultValue={[]}
-            onChange={handleChange}
+            onChange={handleSearchChange}
             options={options}
             />
         </>

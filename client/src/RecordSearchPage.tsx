@@ -29,7 +29,7 @@ function RecordSearchPage() {
     ProcurementRecord[] | undefined
   >();
   const [buyers, setBuyers] = React.useState< Buyer[]|null>()
-
+  const [searchBuyer, setSearchBuyer] = React.useState<string[]>()
   const [reachedEndOfSearch, setReachedEndOfSearch] = React.useState(false);
    
   React.useEffect(() => {
@@ -48,8 +48,9 @@ function RecordSearchPage() {
         setRecords((oldRecords) => [...oldRecords, ...response.records]);
       }
       setReachedEndOfSearch(response.endOfResults);
+      console.log('this, searchb', searchBuyer)
     })();
-  }, [searchFilters, page]);
+  }, [searchFilters, page, searchBuyer]);
 
   React.useEffect(()=>{
     void (async ()=>{
@@ -65,6 +66,9 @@ function RecordSearchPage() {
     setSearchFilters(newFilters);
     setPage(1); // reset pagination state
   }, []);
+  const handleChangeBuyers = React.useCallback((newBuyerFilter:string[]) => {
+    setSearchBuyer(newBuyerFilter);
+  }, []);
 
   const handleLoadMore = React.useCallback(() => {
     setPage((page) => page + 1);
@@ -76,8 +80,10 @@ function RecordSearchPage() {
         filters={searchFilters}
         onChange={handleChangeFilters}
       />
-      {buyers && (<RecordBuyersFilters 
-        buyers= {buyers}/>)
+      {buyers && (
+      <RecordBuyersFilters 
+        buyers= {buyers}
+        onChange={handleChangeBuyers}/>)
       }
 
       {records && (
